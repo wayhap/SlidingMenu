@@ -1,10 +1,10 @@
 package com.jeremyfeinstein.slidingmenu.example.fragments;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.actionbarsherlock.view.MenuItem;
