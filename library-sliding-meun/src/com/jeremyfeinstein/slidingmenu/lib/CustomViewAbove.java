@@ -2,7 +2,7 @@ package com.jeremyfeinstein.slidingmenu.lib;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -25,7 +25,6 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
-
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenedListener;
 //import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnCloseListener;
@@ -508,12 +507,18 @@ public class CustomViewAbove extends ViewGroup {
 		completeScroll();
 	}
 
+	private float scaleTo = 0.8f;
+	@SuppressLint("NewApi")
 	private void pageScrolled(int xpos) {
 		final int widthWithMargin = getWidth();
 		final int position = xpos / widthWithMargin;
 		final int offsetPixels = xpos % widthWithMargin;
 		final float offset = (float) offsetPixels / widthWithMargin;
-
+//		Log.d("test", "fff "+xpos);
+		float scaleValue = 1f-(1-scaleTo)*getPercentOpen();
+		setScaleY(scaleValue);
+		setScaleX(scaleValue);
+		setPivotX(xpos>0?0:getWidth());
 		onPageScrolled(position, offset, offsetPixels);
 	}
 
