@@ -507,7 +507,7 @@ public class CustomViewAbove extends ViewGroup {
 		completeScroll();
 	}
 
-	private float scaleTo = 0.8f;
+	private float scaleTo = 0.9f;
 	@SuppressLint("NewApi")
 	private void pageScrolled(int xpos) {
 		final int widthWithMargin = getWidth();
