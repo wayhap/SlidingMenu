@@ -1,7 +1,7 @@
 package com.jeremyfeinstein.slidingmenu.example.fragments;
 
 import com.jeremyfeinstein.slidingmenu.example.R;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+@SuppressLint("ValidFragment")
 public class ColorFragment extends Fragment {
 	
 	private int mColorRes = -1;
@@ -22,6 +23,7 @@ public class ColorFragment extends Fragment {
 		setRetainInstance(true);
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (savedInstanceState != null)
@@ -29,7 +31,8 @@ public class ColorFragment extends Fragment {
 		int color = getResources().getColor(mColorRes);
 		// construct the RelativeLayout
 		RelativeLayout v = new RelativeLayout(getActivity());
-		v.setBackgroundColor(color);		
+		v.setBackgroundColor(color);
+		getActivity().getActionBar().setTitle("----"+color);
 		return v;
 	}
 	

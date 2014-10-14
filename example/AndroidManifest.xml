@@ -39,6 +39,8 @@
             android:name=".fragments.BirdActivity"
             android:theme="@style/Theme.Sherlock.Light.DarkActionBar" />
         <activity android:name="com.crittercism.NotificationActivity"/>
+        <activity android:name="SlidingMenuUsage"></activity>
+        <activity android:name="FragmentChangeActivity"></activity>
     </application>
 
 </manifest>

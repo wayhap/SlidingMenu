@@ -20,7 +20,7 @@ public class PropertiesActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setSlidingActionBarEnabled(true);
+		setSlidingActionBarEnabled(false);
 
 		setContentView(R.layout.properties);
 		

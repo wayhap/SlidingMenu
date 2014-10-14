@@ -24,22 +24,26 @@ public class ExampleListActivity extends SherlockPreferenceActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle(R.string.app_name);
-		
-//		Crittercism.init(getApplicationContext(), "508ab27601ed857a20000003");
+
+		// Crittercism.init(getApplicationContext(),
+		// "508ab27601ed857a20000003");
 		this.addPreferencesFromResource(R.xml.main);
 	}
 
 	@Override
-	public boolean onPreferenceTreeClick(PreferenceScreen screen, Preference pref) {
+	public boolean onPreferenceTreeClick(PreferenceScreen screen,
+			Preference pref) {
 		Class<?> cls = null;
 		String title = pref.getTitle().toString();
 		if (title.equals(getString(R.string.properties))) {
-			cls = PropertiesActivity.class;	
+			cls = SlidingMenuUsage.class;
 		} else if (title.equals(getString(R.string.attach))) {
 			cls = AttachExample.class;
 		} else if (title.equals(getString(R.string.left_and_right))) {
 			cls = LeftAndRightActivity.class;
-		}  else if (title.equals(getString(R.string.viewpager))) {
+		} else if (title.equals(getString(R.string.changing_fragments))) {
+			cls = FragmentChangeActivity.class;
+		}else if (title.equals(getString(R.string.viewpager))) {
 			cls = ViewPagerActivity.class;
 		} else if (title.equals(getString(R.string.title_bar_slide))) {
 			cls = SlidingTitleBar.class;
@@ -64,26 +68,28 @@ public class ExampleListActivity extends SherlockPreferenceActivity {
 			Util.goToGitHub(this);
 			return true;
 		case R.id.about:
-			new AlertDialog.Builder(this)
-			.setTitle(R.string.about)
-			.setMessage(Html.fromHtml(getString(R.string.about_msg)))
-			.show();
+			new AlertDialog.Builder(this).setTitle(R.string.about)
+					.setMessage(Html.fromHtml(getString(R.string.about_msg)))
+					.show();
 			break;
 		case R.id.licenses:
 			new AlertDialog.Builder(this)
-			.setTitle(R.string.licenses)
-			.setMessage(Html.fromHtml(getString(R.string.apache_license)))
-			.show();
+					.setTitle(R.string.licenses)
+					.setMessage(
+							Html.fromHtml(getString(R.string.apache_license)))
+					.show();
 			break;
 		case R.id.contact:
-			final Intent email = new Intent(android.content.Intent.ACTION_SENDTO);
-			String uriText = "mailto:jfeinstein10@gmail.com" +
-					"?subject=" + URLEncoder.encode("SlidingMenu Demos Feedback"); 
+			final Intent email = new Intent(
+					android.content.Intent.ACTION_SENDTO);
+			String uriText = "mailto:jfeinstein10@gmail.com" + "?subject="
+					+ URLEncoder.encode("SlidingMenu Demos Feedback");
 			email.setData(Uri.parse(uriText));
 			try {
 				startActivity(email);
 			} catch (Exception e) {
-				Toast.makeText(this, R.string.no_email, Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.no_email, Toast.LENGTH_SHORT)
+						.show();
 			}
 			break;
 		}
@@ -95,5 +101,5 @@ public class ExampleListActivity extends SherlockPreferenceActivity {
 		getSupportMenuInflater().inflate(R.menu.example_list, menu);
 		return true;
 	}
-	
+
 }

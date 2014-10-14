@@ -2,6 +2,7 @@ package com.jeremyfeinstein.slidingmenu.lib;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,7 +14,6 @@ import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.util.Log;
 import android.view.FocusFinder;
 import android.view.KeyEvent;
@@ -25,6 +25,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
+
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenedListener;
 //import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnCloseListener;
@@ -299,7 +300,7 @@ public class CustomViewAbove extends ViewGroup {
 	float distanceInfluenceForSnapDuration(float f) {
 		f -= 0.5f; // center the values about 0.
 		f *= 0.3f * Math.PI / 2.0f;
-		return (float) FloatMath.sin(f);
+		return (float) Math.sin(f);
 	}
 
 	public int getDestScrollX(int page) {
@@ -508,20 +509,25 @@ public class CustomViewAbove extends ViewGroup {
 	}
 
 	private float scaleTo = 0.9f;
-	@SuppressLint("NewApi")
+	
 	private void pageScrolled(int xpos) {
 		final int widthWithMargin = getWidth();
 		final int position = xpos / widthWithMargin;
 		final int offsetPixels = xpos % widthWithMargin;
 		final float offset = (float) offsetPixels / widthWithMargin;
 //		Log.d("test", "fff "+xpos);
-		float scaleValue = 1f-(1-scaleTo)*getPercentOpen();
-		setScaleY(scaleValue);
-		setScaleX(scaleValue);
-		setPivotX(xpos>0?0:getWidth());
+		setupScale(xpos<0);
 		onPageScrolled(position, offset, offsetPixels);
 	}
 
+	@SuppressLint("NewApi")
+	private void setupScale(boolean isLeft){
+		float scaleValue = 1f-(1-scaleTo)*getPercentOpen();
+		setScaleY(scaleValue);
+		setScaleX(scaleValue);
+		setPivotX(isLeft?getWidth():0);
+		setPivotY(getHeight()/2);
+	}
 	/**
 	 * This method will be invoked when the current page is scrolled, either as part
 	 * of a programmatically initiated smooth scroll or a user initiated touch scroll.
@@ -807,6 +813,7 @@ public class CustomViewAbove extends ViewGroup {
 		mScrollX = x;
 		mViewBehind.scrollBehindTo(mContent, x, y);	
 		((SlidingMenu)getParent()).manageLayers(getPercentOpen());
+		setupScale(true);
 	}
 
 	private int determineTargetPage(float pageOffset, int velocity, int deltaX) {
